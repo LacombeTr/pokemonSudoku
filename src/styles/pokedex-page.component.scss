@@ -1,0 +1,14 @@
+.dex-container{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    height: calc(75vh - 80px);
+    aspect-ratio: 18/9;
+}
+
+*{
+    border: #DF77E8 dashed 1px;
+}

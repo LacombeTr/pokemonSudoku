@@ -1,0 +1,242 @@
+
+@import "../styles.scss";
+
+// *{
+//     border: dashed 1px #d900ff;
+// }
+
+.game-container{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    height: calc(75vh - 80px);
+    aspect-ratio: 18/9;
+
+
+    background: linear-gradient(0deg, transparent 0%, hsl(0, 0%, 0%, 45%) 100%),
+                repeating-linear-gradient(0deg, #217dba 0px, #217dba 2px, #2075b6 2px, #2075b6 4px);
+}
+
+.rules, .misc{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    flex: 1;
+
+    padding-block: 4rem;
+    padding-inline: 2rem;
+
+    font-family: Helvetica, sans-serif;
+    color: white;
+    
+    h2{
+        text-align: center;
+        margin-bottom: 0;
+
+        HR{
+            color: white;
+            margin-block: 3rem;
+            box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+        }
+    }
+
+    h3{
+        margin-block: 0rem;
+    }
+
+    p{
+        margin: 1rem;
+        text-align: center;
+
+        // border: dashed 1px #d900ff;
+    }
+
+    a{
+        margin: 1.5rem;
+
+        text-decoration: underline;
+
+        font-size: 1.5rem;
+        font-weight: bold;
+
+        &:visited{
+            color: white;
+        }
+    }
+}
+
+.game{
+    display: flex;
+    flex: 3;
+
+    align-items: center;
+    justify-content: center;
+
+    height: calc(70vh - 80px);
+
+    .grid{
+        display: grid;
+
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        gap: 2px;
+
+        div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        & .answer, .condition{
+            height: 11rem;
+            width: 11rem;
+
+            .textual-condition{
+
+                font-family: Helvetica, sans-serif;
+                font-weight: 500;
+                color: white;
+                text-align: center;
+            }
+        }
+
+        & .answer{
+            background-color: hsl(0, 19%, 98%,75%);
+
+            &:hover{
+                background-color: hsl(0, 19%, 98%, 85%);
+            }
+        }
+
+        & .condition{
+            background-color: hsl(0, 0%, 0%, 25%);
+
+            border-radius: 15px;
+        }
+    }
+}
+
+#B1{
+    border-top-left-radius: 15px;
+}
+
+#B3{
+    border-top-right-radius: 15px;
+}
+
+#D1{
+    border-bottom-left-radius: 15px;
+}
+
+#D3{
+    border-bottom-right-radius: 15px;
+}
+
+.modal-select{
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-between;
+
+    position: absolute;
+
+    top:0;
+    left: 0;
+
+    height: 100vh;
+    width: 100vw;
+
+    margin: 0;
+
+    background-color: rgba(0, 0, 0, 0.7);
+
+    font-family: Helvetica, sans-serif;
+    color: white;
+
+    .selector{
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: space-between;
+
+        border-radius:15px;
+
+        background-color: rgba(0, 0, 0, 0.25);
+
+        width: 50rem;
+        height: 35rem;
+
+        .selector-banner{
+            display: flex;
+
+            width: 100%;
+            height: 20px;
+
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .selector-content{
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .selector-banner.top{
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .selector-banner.bottom{
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+    }
+}
+.search-container {
+    position: relative;
+    width: 300px;
+
+    font-size: 1.6rem;
+    font-weight: 200;
+    color: black;
+}
+
+input{
+    width: 100%;
+}
+.suggestions {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+
+.suggestions li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestions li:hover {
+    background-color: #eee;
+}
+
+.selected-pokemon {
+    margin-top: 20px;
+}

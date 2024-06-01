@@ -1,1 +1,440 @@
 /* You can add global styles to this file, and also import other style files */
+html{
+    font-size: 62.5%;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background-image: url("./assets/imgs/bg.jpg");
+    background-size: cover;
+    object-fit: cover;
+}
+
+p{
+    font-size: 1.6rem;
+}
+
+h3{
+    font-size: 2.4rem;
+}
+
+h2{
+    font-size: 3.2rem;
+}
+
+h1{
+    font-size: 6.4rem;
+}
+
+.invisible{
+    display: none !important;
+}
+
+// Banner themed
+
+.banner-anim{
+    position: relative;
+    
+    display: flex;
+
+    width: 100vw;
+    height: 50px;
+
+    overflow: hidden;
+
+    & .square-anim{
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 500vw;
+        height: 100vh;
+
+        transform: translateY(-150px);
+
+        background-size: 50px;
+
+        background-image: url(./assets/imgs/icons/bgBanners.svg);
+        opacity: 0.15;
+
+        animation: 5s slidingSquares linear infinite;
+    }
+
+    & .fruit-anim{
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 500vw;
+        height: 100vh;
+
+        transform: translateY(-600px);
+
+        background-size: 200px;
+
+        animation: 5s slidingFruit linear infinite;
+    }
+
+    & .fruit-anim.violet{
+        background-image: url(./assets/imgs/icons/grapeIcon.svg);
+    }
+
+    & .fruit-anim.scarlet{
+        background-image: url(./assets/imgs/icons/naranjaIcon.svg);
+    }
+}
+
+.banner-anim.violet{
+    background-color: #8430CB;
+}
+
+.banner-anim.scarlet{
+    background-color: #cf6e1f;
+}
+
+@keyframes slidingSquares{
+    0% {
+      transform: translateX(-500px) translateY(0px)
+    }
+    100% {
+      transform: translateX(-400px) translateY(-50px)
+    }
+  }
+
+@keyframes slidingFruit{
+0% {
+    transform: translateX(-200px) translateY(-200px)
+}
+100% {
+    transform: translateX(0px) translateY(0px)
+}
+}
+
+// Pokemon Types
+
+.type-chip{
+    display: flex;
+    
+    align-items: center;
+    
+    height: 2rem;
+    width: 10rem;
+    
+    margin: 0.25rem;
+    
+    border-radius: 1rem;
+    
+    background-color: #5A5A5A;
+    
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+    
+    .type-chip-color{
+        display: flex;
+        
+        align-items: center;
+        
+        height: 2rem;
+        width: 3rem;
+        
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        
+        clip-path: polygon(0 0, 100% 0, 66% 100%, 0 100%, 0 0);
+
+        & .flexdir-col{
+            flex-direction: column;
+        }
+        
+        .type-chip-icon{
+            height: 1.75rem;
+            width: 1.75rem;
+            
+            transform: translateX(0.4rem);
+            
+            object-fit: fill;
+        }
+        
+        .unknown-type{
+            width: 55%;
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+
+    p{
+        width: 5rem;
+        text-align: center;
+        transform: translateY(-0.25px);
+        font-family: Helvetica, sans-serif;
+        margin: 0;
+        margin-left: 0.5rem;
+        font-size: 1.25rem;
+        color: white;
+    }
+
+}
+
+// Conditions
+
+.condition-chip{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    justify-content: center;
+    
+    height: 8rem;
+    width: 10rem;
+    
+    margin: 0.25rem;
+    
+    border-radius: 1rem;
+    
+    background-color: #5A5A5A;
+    
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+    
+    .condition-chip-color{
+        display: flex;
+        
+        align-items: center;
+        justify-content: center;
+
+        margin-top: 1rem;
+        
+        height: 3rem;
+        
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        
+        .condition-chip-icon{
+            height: 2.75rem;
+            
+            object-fit: fill;
+        }
+
+        .stage-icon{
+            height: 1.75rem;
+
+            object-fit: fill;
+        }
+    }
+
+    p{
+        width: 8rem;
+        text-align: center;
+
+        font-family: Helvetica, sans-serif;
+        margin: 0;
+
+        font-size: 1.25rem;
+        color: white;
+    }
+
+}
+
+// Types colors
+
+.NormalTypeColor{
+    background-color: #9FA19F;
+};
+
+.FightingTypeColor{
+    background-color: #EE8733;
+};
+
+.FlyingTypeColor{
+    background-color: #8DB8EA;
+};
+
+.PoisonTypeColor{
+    background-color: #8745C4;
+};
+
+.GroundTypeColor{
+    background-color: #88542B;
+};
+
+.RockTypeColor{
+    background-color: #AEA985;
+};
+
+.BugTypeColor{
+    background-color: #94A038;
+};
+
+.GhostTypeColor{
+    background-color: #6A436D;
+};
+
+.SteelTypeColor{
+    background-color: #6F9FB6;
+};
+
+.FireTypeColor{
+    background-color: #D33D35;
+};
+
+.WaterTypeColor{
+    background-color: #437EE7;
+};
+
+.GrassTypeColor{
+    background-color: #5B9F3D;
+};
+
+.ElectricTypeColor{
+    background-color: #F2C242;
+};
+
+.PsychicTypeColor{
+    background-color: #E16589;
+};
+
+.IceTypeColor{
+    background-color: #6BCBEF;
+};
+
+.DragonTypeColor{
+    background-color: #5360DA;
+};
+
+.DarkTypeColor{
+    background-color: #5F4E4F;
+};
+
+.FairyTypeColor{
+    background-color: #DF77E8;
+};
+
+.UnknownTypeColor{
+    background-color: #749F91;
+};
+
+.stats-displayer{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 50rem;
+    width: 30rem;
+
+    border-radius: 10px;
+    
+    background-color: hsla(0, 0%, 0%, 0.25);
+
+    font-family: Helvetica;
+
+    p{
+        margin: 0;
+    }
+
+    .stats-hexagon{
+        position: relative;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+.stat{
+    margin-right: 0.75rem;
+
+    color: #ffdd00;
+    font-weight: 500;
+}
+
+.stat-pv{
+    position: absolute;
+
+    display: flex;
+
+    top: -3rem;
+}
+
+.stat-atk{
+    position: absolute;
+
+    display: flex;
+
+    top: 2.5rem;
+    left: 16.25rem;
+}
+
+.stat-def{
+    position: absolute;
+
+    display: flex;
+
+    top: 12rem;
+    left: 16.25rem;
+}
+
+.stat-atkspe{
+    position: absolute;
+
+    display: flex;
+
+    top: 2.5rem;
+    left: -6.15rem;
+}
+
+.stat-defspe{
+    position: absolute;
+
+    display: flex;
+
+    top: 12rem;
+    left: -6.15rem;
+}
+
+.stat-vit{
+    position: absolute;
+
+    display: flex;
+
+    bottom: -3rem;
+}
+
+.stat-atk, .stat-def, .stat-atkspe, .stat-defspe{
+    flex-direction: column;
+}
+
+#PV, #atk, #def, #atkspe, #defspe, #vit{
+    color: white;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.stat-atkspe, .stat-defspe{
+
+    text-align: right;
+
+    p{
+        margin: 0 ;
+    }
+}
+
+.stat-pv, .stat-vit{
+    display: flex;
+
+    align-items: center;
+
+    p{
+        margin-left: 0.75rem;
+    }
+}

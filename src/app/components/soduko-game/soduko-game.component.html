@@ -1,0 +1,107 @@
+
+<div class="game-container">
+    
+    <div class="rules">
+        
+        <h2>Pokemon Sudoku<HR></h2>
+        <h3>Game Rules</h3>
+        <p>Rules are simples: for each square find a pokemon that matches the condition indicated a the top of the column and at the beginning of the line !</p>
+        <p> There can be multiple possibilities !</p>
+
+    </div>
+    
+    <div class="game">
+        
+        <div class="grid">
+            
+            <div class="vide"></div>
+            <div class="condition" id="A1">
+                <span [innerHTML]="conditionsList[0] | typesPokemon" *ngIf="isPokemonType(conditionsList[0])"></span>
+                <span [innerHTML]="conditionsList[0] | regionChips" *ngIf="isRegion(conditionsList[0])"></span>
+                <span [innerHTML]="conditionsList[0] | otherConditionsChip" *ngIf="isNeitherPokemonTypeOrRegion(conditionsList[0])"></span>
+            </div>
+            <div class="condition" id="A2">
+                <span [innerHTML]="conditionsList[1] | typesPokemon" *ngIf="isPokemonType(conditionsList[1])"></span>
+                <span [innerHTML]="conditionsList[1] | regionChips" *ngIf="isRegion(conditionsList[1])"></span>
+                <span [innerHTML]="conditionsList[1] | otherConditionsChip" *ngIf="isNeitherPokemonTypeOrRegion(conditionsList[1])"></span>
+            </div>
+            <div class="condition" id="A3">
+                <span [innerHTML]="conditionsList[2] | typesPokemon" *ngIf="isPokemonType(conditionsList[2])"></span>
+                <span [innerHTML]="conditionsList[2] | regionChips" *ngIf="isRegion(conditionsList[2])"></span>
+                <span [innerHTML]="conditionsList[2] | otherConditionsChip" *ngIf="isNeitherPokemonTypeOrRegion(conditionsList[2])"></span>
+            </div>
+            
+            <div class="condition" id="B0">
+                <span [innerHTML]="conditionsList[3] | typesPokemon" *ngIf="isPokemonType(conditionsList[3])"></span>
+                <span [innerHTML]="conditionsList[3] | regionChips" *ngIf="isRegion(conditionsList[3])"></span>
+                <span [innerHTML]="conditionsList[3] | otherConditionsChip" *ngIf="isNeitherPokemonTypeOrRegion(conditionsList[3])"></span>
+            </div>
+            <div (click)="selectPokemon($event)" class="answer" id="B1"></div>
+            <div (click)="selectPokemon($event)" class="answer" id="B2"></div>
+            <div (click)="selectPokemon($event)" class="answer" id="B3"></div>
+            
+            <div class="condition" id="C0">
+                <span [innerHTML]="conditionsList[4] | typesPokemon" *ngIf="isPokemonType(conditionsList[4])"></span>
+                <span [innerHTML]="conditionsList[4] | regionChips" *ngIf="isRegion(conditionsList[4])"></span>
+                <span [innerHTML]="conditionsList[4] | otherConditionsChip" *ngIf="isNeitherPokemonTypeOrRegion(conditionsList[4])"></span>
+            </div>
+            <div (click)="selectPokemon($event)" class="answer" id="C1"></div>
+            <div (click)="selectPokemon($event)" class="answer" id="C2"></div>
+            <div (click)="selectPokemon($event)" class="answer" id="C3"></div>
+            
+            <div class="condition" id="D0">
+                <span [innerHTML]="conditionsList[5] | typesPokemon" *ngIf="isPokemonType(conditionsList[5])"></span>
+                <span [innerHTML]="conditionsList[5] | regionChips" *ngIf="isRegion(conditionsList[5])"></span>
+                <span [innerHTML]="conditionsList[5] | otherConditionsChip" *ngIf="isNeitherPokemonTypeOrRegion(conditionsList[5])"></span>
+            </div>
+            <div (click)="selectPokemon($event)" class="answer" id="D1"></div>
+            <div (click)="selectPokemon($event)" class="answer" id="D2"></div>
+            <div (click)="selectPokemon($event)" class="answer" id="D3"></div>
+            
+        </div>
+        
+    </div>
+        
+    <div class="misc">
+        <h3>Credits</h3>
+        <p>This game is a clone of the PokeDoku Game created by Doku Games available here:</p>
+        <a href="https://pokedoku.com" target="_blank">Original PokeDoku</a>
+    </div>
+</div>
+
+<div class="modal-select invisible">
+    <div class="banner-anim violet">
+        <div class="square-anim violet"></div>
+        <div class="fruit-anim violet"></div>
+    </div>
+
+    <div class="selector">
+        <div class="selector-banner top"></div>
+        <div class="selector-content">
+            <h2>What is your answer</h2>
+            <div class="condition-selector">
+                <p>this pokemon must</p>
+                <p>this pokemon must</p>
+            </div>
+            <div class="search-container">
+                <input type="text" (input)="onSearchInputChange($event)" placeholder="Search Pokémon Names">
+                <ul class="suggestions">
+                    <li *ngFor="let pokemonName of filteredPokemonNamesList" (click)="selectPokemonName(pokemonName)">
+                    {{ pokemonName }}
+                    </li>
+                </ul>
+            </div>
+            
+            <div *ngIf="selectedPokemonName" class="selected-pokemon">
+                
+            <h3>Selected Pokémon: {{ selectedPokemonName }}</h3>
+            </div>
+            <button class="validate-button">Validate</button>
+        </div>
+        <div class="selector-banner bottom"></div>
+    </div>
+
+    <div class="banner-anim violet">
+        <div class="square-anim violet"></div>
+    </div>
+</div>

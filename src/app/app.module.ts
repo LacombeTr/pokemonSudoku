@@ -3,10 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SodukoGameComponent } from './components/soduko-game/soduko-game.component';
+import { TypesPokemonPipe } from '../assets/pipes/types-pokemon.pipe';
+import { RegionChipsPipe } from '../assets/pipes/region-chips.pipe';
+import { OtherConditionsChipPipe } from '../assets/pipes/other-conditions-chip.pipe';
+import { PokedexPageComponent } from './components/pokedex-page/pokedex-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SodukoGameComponent,
+    TypesPokemonPipe,
+    RegionChipsPipe,
+    OtherConditionsChipPipe,
+    PokedexPageComponent
   ],
   imports: [
     BrowserModule,
