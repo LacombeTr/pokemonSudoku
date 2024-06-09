@@ -36,6 +36,7 @@ h1{
 
 .invisible{
     display: none !important;
+    position: absolute;
 }
 
 // Banner themed
@@ -327,8 +328,8 @@ h1{
     align-items: center;
     justify-content: center;
 
-    height: 50rem;
-    width: 30rem;
+    height: 100%;
+    width: 100%;
 
     border-radius: 10px;
     

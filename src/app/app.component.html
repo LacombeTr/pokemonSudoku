@@ -5,8 +5,10 @@
       <div *ngIf="loadedComponent === 'pokedex'"><p>HELLO</p></div>
     </div>
 
-    <div class="content pokedexBG">
-      <app-pokedex-page (loaded)="onChildLoaded($event)"></app-pokedex-page>
+    <div class="content">
+      <app-soduko-game (loaded)="onChildLoaded($event)"></app-soduko-game>
+       <!-- <app-pokedex-page (loaded)="onChildLoaded($event)"></app-pokedex-page> -->
+      <div class="sodukoBG"></div>
       <svg class="pokedexBGblobs" id="blob1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <path fill="#52AEB6" d="M45.4,-44.1C60.6,-30.3,75.6,-15.2,72.2,-3.4C68.8,8.3,46.8,16.6,31.7,21.9C16.6,27.3,8.3,29.8,-3,32.8C-14.2,35.7,-28.4,39.2,-41,33.8C-53.6,28.4,-64.5,14.2,-62.4,2.1C-60.3,-10,-45.2,-20,-32.6,-33.8C-20,-47.6,-10,-65.1,2.6,-67.6C15.2,-70.2,30.3,-57.9,45.4,-44.1Z" transform="translate(100 100)" />
       </svg>

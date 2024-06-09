@@ -14,10 +14,6 @@
 
     height: calc(75vh - 80px);
     aspect-ratio: 18/9;
-
-
-    background: linear-gradient(0deg, transparent 0%, hsl(0, 0%, 0%, 45%) 100%),
-                repeating-linear-gradient(0deg, #217dba 0px, #217dba 2px, #2075b6 2px, #2075b6 4px);
 }
 
 .rules, .misc{
@@ -94,7 +90,7 @@
             justify-content: center;
         }
 
-        & .answer, .condition{
+        .answer, .condition{
             height: 11rem;
             width: 11rem;
 
@@ -107,15 +103,27 @@
             }
         }
 
-        & .answer{
+        .answer{
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
             background-color: hsl(0, 19%, 98%,75%);
+
+            img{
+                display: flex;
+            
+                height: 100px;
+                width: 100px;
+            }
 
             &:hover{
                 background-color: hsl(0, 19%, 98%, 85%);
             }
         }
 
-        & .condition{
+        .condition{
             background-color: hsl(0, 0%, 0%, 25%);
 
             border-radius: 15px;
@@ -146,7 +154,7 @@
     align-items: center;
     justify-content:space-between;
 
-    position: absolute;
+    position: fixed;
 
     top:0;
     left: 0;
@@ -203,6 +211,7 @@
         }
     }
 }
+
 .search-container {
     position: relative;
     width: 300px;

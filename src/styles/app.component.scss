@@ -1,6 +1,8 @@
 @import '../styles.scss';
 
 .container{
+    position: relative;
+
     display: flex;
 
     align-items: center;
@@ -16,9 +18,30 @@
 }
 
 .pokedexBG{
+    position: absolute;
+
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
     background-color: #72E9B8;
 
-    z-index: -3;
+    z-index: -5;
+}
+
+.sodukoBG{
+    position: absolute;
+
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+    
+    background: linear-gradient(0deg, transparent 0%, hsl(0, 0%, 0%, 45%) 100%),
+                repeating-linear-gradient(0deg, #217dba 0px, #217dba 2px, #2075b6 2px, #2075b6 4px);
+    
+    z-index: -1;
 }
 
 .pokedexBGhasher{
@@ -31,7 +54,7 @@
 
     background: repeating-linear-gradient(0deg, hsla(192, 26%, 96%, 0.125) 0px, hsla(192, 26%, 96%, 0.125) 2px, transparent 2px, transparent 4px);
 
-    z-index: -1;
+    z-index: -3;
 }
 
 .pokedexBGblobs{
@@ -39,10 +62,12 @@
 
     filter: blur(100px);
 
-    z-index: -2;
+    z-index: -4;
 }
 
 .pad{
+    position: relative;
+
     display: flex;
     flex-direction: column;
     
@@ -91,6 +116,8 @@
     right: -35%;
 
     height: 200%;
+
+    z-index: -4;
 }
 
 #blob2{
@@ -98,4 +125,5 @@
     right: 0%;
 
     height: 300%;
+    z-index: -4;
 }

@@ -1,4 +1,23 @@
 <div class="dex-container">
-    <div class="stats-displayer">
+
+    <h1 class="pokemonInfoName">Please select a Pokemon</h1>
+
+    <form [formGroup]="searchForm" (ngSubmit)="pokedexSearch()" class="searchBar">
+        <input type="text" id="searchField" formControlName="searchField">
+    </form>
+
+    <div class="infospokemon">
+        <h3 class="pokemonInfoQuali">-</h3>
+        <p class="pokemonInfoTypes"></p>
+
+        <p class="pokemonInfo pokemonInfoDim">Height: -<br>Weight: -</p>
+        <div class="pokemonInfo pokemonInfoDesc">
+            <p>Description:</p>
+            <p class="pokemonDesc">-</p>
+        </div>
+
+        <div class="pokemonInfoSprite"></div>
     </div>
+
+    <div class="stats-displayer"></div>
 </div>
