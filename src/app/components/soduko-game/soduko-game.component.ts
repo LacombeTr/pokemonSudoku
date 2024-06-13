@@ -21,7 +21,7 @@ export class SodukoGameComponent implements OnInit{
     // informations will be stored "retrievedPokemon"
   
   pokeDex = new Pokedex();
-  retrievedPokemon: any;
+  retrievedPokemon: any = [];
 
   // Variables used to store the div that the user click on and it's ID
 
@@ -356,25 +356,29 @@ export class SodukoGameComponent implements OnInit{
 
     this.selectedDiv = event.target as HTMLElement;
     this.selectedDivID = this.selectedDiv.id;
+
+    console.log(this.selectedDivID);
+    console.log(this.selectedDiv);
+    
   };
 
   // This function hide the pokemon selection modal screen when the validate button is clicked (see HTML),
     // and attribute the selected pokemon characteristics to the "selectedPokemonList" (corresponding to the list
     // of pokemons selected by the user as answers)
 
-  validatePokemon(){
+  async validatePokemon(){
   
     let modalSelection = document.querySelector('.modal-select') as HTMLElement;
-    let selectedPokemon = document.querySelector('.selected-pokemon').textContent;
+    // let selectedPokemon = document.querySelector('.selected-pokemon').textContent;
 
     // This is a bit messy, selected pokemon name should come from a variable and not extracted from the DOM
 
-    selectedPokemon = selectedPokemon.replace('Selected Pokémon: ', '');
+    // selectedPokemon = selectedPokemon.replace('Selected Pokémon: ', '');
 
     // Fecthing informations about the selected pokemon using the "pokedexSearch()" function, this contain
       // both pokemon and pokemon species information (see PokeAPI for more informations)
 
-    this.pokedexSearch(selectedPokemon);
+    await this.pokedexSearch(this.selectedPokemonName);
 
     // using the pokemon information fetched using the "pokedexSearch()" function we can create a custom
       // object for each pokemon selected by the user and put it in the "selectedPokemonlist" object that
@@ -405,63 +409,96 @@ export class SodukoGameComponent implements OnInit{
                                                      isMythical: this.retrievedPokemon.is_mythical
                                                      };
     
+    console.log(this.selectedPokemonsList);
+    
+
     // Apply to the selected (clicked) answer the image of the selected pokemon
 
-    this.selectedDiv.getElementByID("image")
     this.renderer.setProperty(this.selectedDiv, 'src', this.retrievedPokemon.sprites.other.home.front_default);
 
     // Hide the pokemon selection modal screen
 
     modalSelection.classList.add('invisible');
 
+    this.retrievedPokemon = [];
+    this.selectedPokemonName = '';
+
     this.cdr.detectChanges(); // check changes in the DOM trigger render update
   };
 
   // This function is used to fetch informations about the selected pokemon which name is given as an input
 
-  pokedexSearch(pokemonInput){
+  async pokedexSearch(pokemonInput){
 
-    // Using the "getPokemonByName()" method from the Pokemon-Promise library (which provide premade fetching methods
-      // and cache for the PokeAPI) let's fetch informations about the selected pokemon (Since URL from/to "PokeAPI"
-      // only accept lowercase the passed pokemon name)
+    try{
+      // Using the "getPokemonByName()" method from the Pokemon-Promise library (which provide premade fetching methods
+        // and cache for the PokeAPI) let's fetch informations about the selected pokemon (Since URL from/to "PokeAPI"
+        // only accept lowercase the passed pokemon name)
 
-    this.pokeDex.getPokemonByName(pokemonInput.toLowerCase())
+      const response = await this.pokeDex.getPokemonByName(pokemonInput.toLowerCase());
 
-      .then((response) => {
+      const response2 = await this.pokeDex.getPokemonSpeciesByName(response.species.name.toLowerCase());
 
-        // when receving the answer from the fecth then use the "getPokemonSpeciesByName()" method to gather additional info
-          // about the pokemon selected
+      // Once this second fetch is resolved let's merge the two responses of the fetch to only have one object summarizing
+        // all the information sof the pokemon.
 
-        this.pokeDex.getPokemonSpeciesByName(response.species.name.toLowerCase())
-          .then((response2) => {
+      // WARNING: we want to keep only the name of the pokemon not of the species so the object is destructared to
+        //        remove the name of the species (in response2)
 
-            // Once this second fetch is resolved let's merge the two responses of the fetch to only have one object summarizing
-              // all the information sof the pokemon.
-              // WARNING: we want to keep only the name of the pokemon not of the species so the object is destructared to
-              //          remove the name of the species (in response2)
+      const { name, ...response2WithoutName } = response2;
 
-            const { name, ...response2WithoutName } = response2; // here is the object destructuration
-            this.retrievedPokemon = { ...response, ...response2WithoutName };
+      this.retrievedPokemon = { ...response, ...response2WithoutName };
 
-            // Return the object containing the informations of the pokemon
+      // Return the object containing the informations of the pokemon
+      console.log(this.retrievedPokemon);
+      
+      return this.retrievedPokemon;
 
-            return this.retrievedPokemon;
-          })
-          .catch((error) => {
-            console.log('There was an ERROR with pokemon species infos: ', error);
-          });
+    } catch (error) {
 
-      })
-      .catch((error) => {
-        console.log('There was an ERROR with pokemon infos: ', error);
-      });
+      console.error('There was an error with fetching Pokémon data:', error);
+      throw error;
+    };
   };
+
+
+  //   this.pokeDex.getPokemonByName(pokemonInput.toLowerCase())
+
+  //     .then((response) => {
+
+  //       // when receving the answer from the fetch then use the "getPokemonSpeciesByName()" method to gather additional info
+  //         // about the pokemon selected
+
+  //       this.pokeDex.getPokemonSpeciesByName(response.species.name.toLowerCase())
+  //         .then((response2) => {
+
+  //           // Once this second fetch is resolved let's merge the two responses of the fetch to only have one object summarizing
+  //             // all the information sof the pokemon.
+  //             // WARNING: we want to keep only the name of the pokemon not of the species so the object is destructared to
+  //             //          remove the name of the species (in response2)
+
+  //           const { name, ...response2WithoutName } = response2; // here is the object destructuration
+  //           this.retrievedPokemon = { ...response, ...response2WithoutName };
+
+  //           // Return the object containing the informations of the pokemon
+
+  //           return this.retrievedPokemon;
+  //         })
+  //         .catch((error) => {
+  //           console.log('There was an ERROR with pokemon species infos: ', error);
+  //         });
+
+  //     })
+  //     .catch((error) => {
+  //       console.log('There was an ERROR with pokemon infos: ', error);
+  //     });
+  // };
 
   // This function check how many type a pokemon have, it return true if the pokemon only have one type or
     // false if the pokemon have two types
 
-  checkMonotype(typeArray: []){
-    return typeArray.length === 1;
+  checkMonotype(types: string[]): boolean {
+    return types.length === 1;
   }
 
   // This function check if the pokemon have a Gmax form, it return true if the pokemon have one type or
