@@ -446,23 +446,6 @@ export class SodukoGameComponent implements OnInit{
       console.log(this.conditionsCombinations);
       
     };
-
-    // Condition display ====================================================================
-
-    // ############################### TEMPORARY ###############################
-
-    // We display the condition combination for each answer div, it's just for
-      // visualisation purposes and will be removed in the final version
-
-    // #########################################################################
-
-    answers.forEach((answer) =>{
-      const id = answer.id;
-      if (this.conditionsCombinations.hasOwnProperty(id)) {
-        
-        answer.textContent = this.conditionsCombinations[id].join(' and ');
-      };
-    });
   };
 
 // ================================================================================================================================================================================
@@ -532,23 +515,47 @@ export class SodukoGameComponent implements OnInit{
     // of pokemons selected by the user as answers)
 
   async validatePokemon(){
-  
+    
     let modalSelection = document.querySelector('.modal-select') as HTMLElement;
-    // let selectedPokemon = document.querySelector('.selected-pokemon').textContent;
+    let loadingScreen = document.querySelector('.selector-loader') as HTMLElement;
+    let modalSelectionContent = document.querySelector('.selector-content') as HTMLElement;
 
-    // This is a bit messy, selected pokemon name should come from a variable and not extracted from the DOM
+    // Disable selection screen and dislay a loading animation
 
-    // selectedPokemon = selectedPokemon.replace('Selected Pokémon: ', '');
+    modalSelectionContent.classList.add('invisible');
+    loadingScreen.classList.remove('invisible');
 
     // Fecthing informations about the selected pokemon using the "pokedexSearch()" function, this contain
       // both pokemon and pokemon species information (see PokeAPI for more informations)
-
+    
     await this.pokedexSearch(this.selectedPokemonName);
+
+    // ################################ TODO ################################
+    //
+    // For now if the user enter a something which is not the name of a pokemon
+    // the loading screen run undefinitely, to counter that, either catch the
+    // error.
+    //
+    // ######################################################################
+
+    // Reverse selection screen and loading animation at their inital state
+
+    modalSelectionContent.classList.remove('invisible');
+    loadingScreen.classList.add('invisible');
 
     // using the pokemon information fetched using the "pokedexSearch()" function we can create a custom
       // object for each pokemon selected by the user and put it in the "selectedPokemonlist" object that
       // will be used latter to check if the selected pokemon are correct (match the conditions)
-
+      
+    this.selectedPokemonsList[this.selectedDivID] = {name: this.retrievedPokemon.name,
+                                                      types: this.retrievedPokemon.types.map(slot => slot.type.name),
+                                                      isMonotype: this.checkMonotype(this.retrievedPokemon.types.map(slot => slot.type.name)),
+                                                      region: this.checkRegion(this.retrievedPokemon.generation.name, this.retrievedPokemon.name),
+                                                      hasMega: this.checkMega(this.retrievedPokemon.varieties.map(slot => slot.pokemon.name)),
+                                                      hasGiga: this.checkGiga(this.retrievedPokemon.varieties.map(slot => slot.pokemon.name)),
+                                                      isLegendary: this.retrievedPokemon.is_legendary,
+                                                      isMythical: this.retrievedPokemon.is_mythical
+                                                      };
     // Some details about the object :
       // - name: string : correspond to the name of the pokemon, notice that for forms only the
       //                  species name is used (ex: necrozma-ultra => necrozma)
@@ -563,20 +570,9 @@ export class SodukoGameComponent implements OnInit{
       //                      or does not have (false) a Gmax form
       // - isLegendary: boolean : indicate if the pokemon is legendary (true) or not (false)
       // - isMythical: boolean : indicate if the pokemon is mythical (true) or not (false)
-
-    this.selectedPokemonsList[this.selectedDivID] = {name: this.retrievedPokemon.name,
-                                                     types: this.retrievedPokemon.types.map(slot => slot.type.name),
-                                                     isMonotype: this.checkMonotype(this.retrievedPokemon.types.map(slot => slot.type.name)),
-                                                     region: this.checkRegion(this.retrievedPokemon.generation.name, this.retrievedPokemon.name),
-                                                     hasMega: this.checkMega(this.retrievedPokemon.varieties.map(slot => slot.pokemon.name)),
-                                                     hasGiga: this.checkGiga(this.retrievedPokemon.varieties.map(slot => slot.pokemon.name)),
-                                                     isLegendary: this.retrievedPokemon.is_legendary,
-                                                     isMythical: this.retrievedPokemon.is_mythical
-                                                     };
     
     // console.log(this.selectedPokemonsList);
     
-
     // Apply to the selected (clicked) answer the image of the selected pokemon
     
     // Utilisation de Renderer2 pour manipuler le DOM
@@ -628,7 +624,6 @@ export class SodukoGameComponent implements OnInit{
     } catch (error) {
 
       console.error('There was an error with fetching Pokémon data:', error);
-      throw error;
     };
   };
 
