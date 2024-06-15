@@ -111,13 +111,6 @@
 
             background-color: hsl(0, 19%, 98%,75%);
 
-            img{
-                display: flex;
-            
-                height: 100px;
-                width: 100px;
-            }
-
             &:hover{
                 background-color: hsl(0, 19%, 98%, 85%);
             }
@@ -167,7 +160,7 @@
     background-color: rgba(0, 0, 0, 0.7);
 
     font-family: Helvetica, sans-serif;
-    color: white;
+    color: hsl(0, 0%, 8%);
 
     .selector{
         display: flex;
@@ -178,7 +171,7 @@
 
         border-radius:15px;
 
-        background-color: rgba(0, 0, 0, 0.25);
+        background: repeating-linear-gradient(0deg, hsl(0, 0%, 100%) 0px, hsl(0, 0%, 97%) 2px, hsl(0, 97%, 100%) 2px, hsl(0, 0%, 100%) 4px);
 
         width: 50rem;
         height: 35rem;
@@ -248,4 +241,15 @@ input{
 
 .selected-pokemon {
     margin-top: 20px;
+}
+
+.img-sprite{
+    height: 100px;
+    width: 100px;
+
+    object-fit: cover;
+}
+
+.loader-puzzle{
+    font-size: 8rem;
 }
