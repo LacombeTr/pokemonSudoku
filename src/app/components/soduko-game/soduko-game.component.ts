@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, Renderer2} from '@angular/core';
 import { conditionTable } from '../../../assets/data/conditions';
 import Pokedex from 'pokedex-promise-v2';
+
 @Component({
   selector: 'app-soduko-game',
   templateUrl: 'soduko-game.component.html',
@@ -66,7 +67,6 @@ export class SodukoGameComponent implements OnInit{
     D2: '',
     D3: ''
   }
-  
 // At the initialisation of the component ======================================================================================================
 
   ngOnInit() {
@@ -267,11 +267,173 @@ export class SodukoGameComponent implements OnInit{
       // of the current row and column ("combinedCondition"), adding the combination at the corresponding key 
       // and incrementing the indexList
 
+    // We define for the condition the possible types
+
+    type Condition = 
+    | { types: string | string[] }
+    | { isMonotype: boolean }
+    | { region: string }
+    | { hasMega: boolean }
+    | { hasGiga: boolean }
+    | { isLegendary: boolean }
+    | { isMythical: boolean };
+
+    // Let's attribute this type to both row and column condition
+    
+    let conditionRow: Condition;
+    let conditionCol: Condition;
+    let combinedCondition: Condition;
+
+    // This function allow to check is conditons Col and conditionRow are types or not
+
+    function isTypesCondition(condition: Condition): condition is { types: string | string[] } {
+      return 'types' in condition;
+    }
+
     for (let indexRow = 0; indexRow < conditionsRows.length; indexRow++) {
+
+      switch (conditionsRows[indexRow]) {
+        case 'Normal':
+        case 'Fighting':
+        case 'Flying':
+        case 'Ghost':
+        case 'Bug': 
+        case 'Steel': 
+        case 'Poison': 
+        case 'Fire': 
+        case 'Water': 
+        case 'Grass': 
+        case 'Ground': 
+        case 'Rock': 
+        case 'Electric': 
+        case 'Ice': 
+        case 'Dragon': 
+        case 'Dark': 
+        case 'Fairy':
+          
+          conditionRow = {types: conditionsRows[indexRow]} ;
+          break;
+
+        case 'Monotype':
+
+          conditionRow = {isMonotype: true} ;
+          break;
+        
+        case 'Kanto':
+        case  'Johto':
+        case  'Hoenn':
+        case  'Sinnoh':
+        case  'Unova':
+        case  'Kalos':
+        case  'Alola':
+        case  'Galar':
+        case  'Paldea':
+        case  'Hisui':
+
+          conditionRow = {region: conditionsRows[indexRow]} ;
+          break;
+
+        case 'Mega':
+
+          conditionRow = {hasMega: true} ;
+          break;
+
+        case 'Gmax':
+
+          conditionRow = {hasGiga: true} ;
+          break;
+
+        case 'Legendary':
+
+          conditionRow = {isLegendary: true} ;
+          break;
+
+        case 'Mythical':
+
+          conditionRow = {isMythical: true} ;
+          break;
+
+        default:
+          throw console.error("Error during row conditions attribution at row" + indexRow + ": no correspondance in conditions");          
+      }
+
       for (let indexCol = 0; indexCol < conditionsCols.length; indexCol++) {
 
-        let combinedCondition = [conditionsCols[indexCol], conditionsRows[indexRow]];
+        switch (conditionsCols[indexCol]) {
+          case 'Normal':
+          case 'Fighting':
+          case 'Flying':
+          case 'Ghost':
+          case 'Bug': 
+          case 'Steel': 
+          case 'Poison': 
+          case 'Fire': 
+          case 'Water': 
+          case 'Grass': 
+          case 'Ground': 
+          case 'Rock': 
+          case 'Electric': 
+          case 'Ice': 
+          case 'Dragon': 
+          case 'Dark': 
+          case 'Fairy':
+            
+            conditionCol = {types: conditionsCols[indexCol]} ;
+            break;
+
+          case 'Monotype':
+
+            conditionCol = {isMonotype: true} ;
+            break;
+          
+          case 'Kanto':
+          case  'Johto':
+          case  'Hoenn':
+          case  'Sinnoh':
+          case  'Unova':
+          case  'Kalos':
+          case  'Alola':
+          case  'Galar':
+          case  'Paldea':
+          case  'Hisui':
+  
+            conditionCol = {region: conditionsCols[indexCol]} ;
+            break;
+  
+          case 'Mega':
+  
+            conditionCol = {hasMega: true} ;
+            break;
+  
+          case 'Gmax':
+  
+            conditionCol = {hasGiga: true} ;
+            break;
+  
+          case 'Legendary':
+  
+            conditionCol = {isLegendary: true} ;
+            break;
+  
+          case 'Mythical':
+  
+            conditionCol = {isMythical: true} ;
+            break;
+  
+          default:
+            throw console.error("Error during column conditions attribution at column" + indexCol + ": no correspondance in conditions");          
+        }
+        
+        // SI LES DEUX CONDITIONS SONT DES TYPES ALORS
+
+        if (isTypesCondition(conditionCol) && isTypesCondition(conditionRow)){
+          combinedCondition = { types: ([] as string[]).concat(conditionCol.types, conditionRow.types)};
+        } else {
+          combinedCondition = {...conditionCol, ...conditionRow};
+        }
+
         // console.log(combinedCondition);
+
         if (indexList < keys.length) {
           let key = keys[indexList];
 
@@ -280,6 +442,9 @@ export class SodukoGameComponent implements OnInit{
           indexList++;
         }
       };
+
+      console.log(this.conditionsCombinations);
+      
     };
 
     // Condition display ====================================================================
@@ -357,8 +522,8 @@ export class SodukoGameComponent implements OnInit{
     this.selectedDiv = event.target as HTMLElement;
     this.selectedDivID = this.selectedDiv.id;
 
-    console.log(this.selectedDivID);
-    console.log(this.selectedDiv);
+    // console.log(this.selectedDivID);
+    // console.log(this.selectedDiv);
     
   };
 
@@ -409,7 +574,7 @@ export class SodukoGameComponent implements OnInit{
                                                      isMythical: this.retrievedPokemon.is_mythical
                                                      };
     
-    console.log(this.selectedPokemonsList);
+    // console.log(this.selectedPokemonsList);
     
 
     // Apply to the selected (clicked) answer the image of the selected pokemon
@@ -456,7 +621,7 @@ export class SodukoGameComponent implements OnInit{
       this.retrievedPokemon = { ...response, ...response2WithoutName };
 
       // Return the object containing the informations of the pokemon
-      console.log(this.retrievedPokemon);
+      // console.log(this.retrievedPokemon);
       
       return this.retrievedPokemon;
 
