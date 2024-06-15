@@ -111,13 +111,6 @@
 
             background-color: hsl(0, 19%, 98%,75%);
 
-            img{
-                display: flex;
-            
-                height: 100px;
-                width: 100px;
-            }
-
             &:hover{
                 background-color: hsl(0, 19%, 98%, 85%);
             }
@@ -248,4 +241,11 @@ input{
 
 .selected-pokemon {
     margin-top: 20px;
+}
+
+.img-sprite{
+    height: 100px;
+    width: 100px;
+
+    object-fit: cover;
 }

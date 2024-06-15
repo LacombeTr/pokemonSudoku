@@ -71,6 +71,25 @@ export class SodukoGameComponent implements OnInit{
 
   ngOnInit() {
 
+    // On initiation of the component let's grab the list of all pokemon "pokemonNamesList" and add it the
+      // "filteredPokemonNamesList" so when the user choose a pokemon as an answer they can type the start
+      // of the name of the wanted pokemon and select in a list of pokemon matching the input, the
+      // user can also write nothing, in such case the list will correspond to all of the existing pokemon
+
+    const fetchPokemonList = async () => {
+      try {
+        const pokemonList = await this.pokeDex.getPokemonsList(); // Attendre que la promesse soit résolue
+        this.pokemonNamesList = pokemonList.results.map(pokemon => pokemon.name);
+        this.filteredPokemonNamesList = [...this.pokemonNamesList];
+      } catch (error) {
+        console.error('Error fetching Pokémon list:', error); // Gérez les erreurs éventuelles
+      }
+    };
+  
+    fetchPokemonList().then(() => {
+      // console.log(this.pokemonNamesList)
+    });
+
     // At the initation of the component, we assign the conditions of each column and row.
 
     // The conditions given to divs are stored in the conditionsList table as:
@@ -216,25 +235,6 @@ export class SodukoGameComponent implements OnInit{
       // The "checkIncr" variable is incremented to count at which condition are we.
 
       checkIncr ++;
-    });
-
-    // On initiation of the component let's grab the list of all pokemon "pokemonNamesList" and add it the
-      // "filteredPokemonNamesList" so when the user choose a pokemon as an answer they can type the start
-      // of the name of the wanted pokemon and select in a list of pokemon matching the input, the
-      // user can also write nothing, in such case the list will correspond to all of the existing pokemon
-
-    const fetchPokemonList = async () => {
-      try {
-        const pokemonList = await this.pokeDex.getPokemonsList(); // Attendre que la promesse soit résolue
-        this.pokemonNamesList = pokemonList.results.map(pokemon => pokemon.name);
-        this.filteredPokemonNamesList = [...this.pokemonNamesList];
-      } catch (error) {
-        console.error('Error fetching Pokémon list:', error); // Gérez les erreurs éventuelles
-      }
-    };
-  
-    fetchPokemonList().then(() => {
-      // console.log(this.pokemonNamesList)
     });
 
     // Creation of the list of the condition combinations ====================================================================
@@ -413,8 +413,14 @@ export class SodukoGameComponent implements OnInit{
     
 
     // Apply to the selected (clicked) answer the image of the selected pokemon
-
-    this.renderer.setProperty(this.selectedDiv, 'src', this.retrievedPokemon.sprites.other.home.front_default);
+    
+    // Utilisation de Renderer2 pour manipuler le DOM
+    const img = this.renderer.createElement('img');
+    this.renderer.setAttribute(img, 'src', this.retrievedPokemon.sprites.other.home.front_default);
+    this.renderer.setAttribute(img, 'alt', this.retrievedPokemon.name);
+    this.renderer.addClass(img, 'img-sprite');
+    this.renderer.setProperty(this.selectedDiv, 'innerHTML', '');
+    this.renderer.appendChild(this.selectedDiv, img);
 
     // Hide the pokemon selection modal screen
 
@@ -460,39 +466,6 @@ export class SodukoGameComponent implements OnInit{
       throw error;
     };
   };
-
-
-  //   this.pokeDex.getPokemonByName(pokemonInput.toLowerCase())
-
-  //     .then((response) => {
-
-  //       // when receving the answer from the fetch then use the "getPokemonSpeciesByName()" method to gather additional info
-  //         // about the pokemon selected
-
-  //       this.pokeDex.getPokemonSpeciesByName(response.species.name.toLowerCase())
-  //         .then((response2) => {
-
-  //           // Once this second fetch is resolved let's merge the two responses of the fetch to only have one object summarizing
-  //             // all the information sof the pokemon.
-  //             // WARNING: we want to keep only the name of the pokemon not of the species so the object is destructared to
-  //             //          remove the name of the species (in response2)
-
-  //           const { name, ...response2WithoutName } = response2; // here is the object destructuration
-  //           this.retrievedPokemon = { ...response, ...response2WithoutName };
-
-  //           // Return the object containing the informations of the pokemon
-
-  //           return this.retrievedPokemon;
-  //         })
-  //         .catch((error) => {
-  //           console.log('There was an ERROR with pokemon species infos: ', error);
-  //         });
-
-  //     })
-  //     .catch((error) => {
-  //       console.log('There was an ERROR with pokemon infos: ', error);
-  //     });
-  // };
 
   // This function check how many type a pokemon have, it return true if the pokemon only have one type or
     // false if the pokemon have two types
