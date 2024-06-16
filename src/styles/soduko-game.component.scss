@@ -116,6 +116,32 @@
             }
         }
 
+        .answer-correct{
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background-color: hsla(96, 100%, 64%, 75%) !important;
+            
+            &:hover{
+                background-color: hsla(96, 100%, 64%, 85%) !important;
+            }
+        }
+
+        .answer-incorrect{
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background-color: hsla(0, 100%, 64%, 0.75) !important;
+            
+            &:hover{
+                background-color: hsla(0, 100%, 64%, 85%) !important;
+            }
+        }
+
         .condition{
             background-color: hsl(0, 0%, 0%, 25%);
 
