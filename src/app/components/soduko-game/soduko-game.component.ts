@@ -34,6 +34,17 @@ export class SodukoGameComponent implements OnInit{
   pokemonNamesList: string[] = []; // list of all pokemons names, filled on init
   filteredPokemonNamesList: string[] = []; // list of filtered pokemons names, updated by the "onSearchInputChange()" function
   selectedPokemonName: string | null = null; // Name of the selected pokemon
+  selectedPokemonNameList= { // list of the selected pokemons
+    B1: {},
+    B2: {},
+    B3: {},
+    C1: {},
+    C2: {},
+    C3: {},
+    D1: {},
+    D2: {},
+    D3: {}
+  }
 
   // Variable used to store the list of conditions of the grid and the pool of availble conditions
 
@@ -55,18 +66,29 @@ export class SodukoGameComponent implements OnInit{
   }
 
   // Creation of the list of pokemon selected by user 
+
+                                                      // name: this.retrievedPokemon.name,
+                                                      // types: this.retrievedPokemon.types.map(slot => slot.type.name),
+                                                      // isMonotype: this.checkMonotype(this.retrievedPokemon.types.map(slot => slot.type.name)),
+                                                      // region: this.checkRegion(this.retrievedPokemon.generation.name, this.retrievedPokemon.name),
+                                                      // hasMega: this.checkMega(this.retrievedPokemon.varieties.map(slot => slot.pokemon.name)),
+                                                      // hasGiga: this.checkGiga(this.retrievedPokemon.varieties.map(slot => slot.pokemon.name)),
+                                                      // isLegendary: this.retrievedPokemon.is_legendary,
+                                                      // isMythical: this.retrievedPokemon.is_mythical
+                                                      
     
   selectedPokemonsList = {
-    B1: '',
-    B2: '',
-    B3: '',
-    C1: '',
-    C2: '',
-    C3: '',
-    D1: '',
-    D2: '',
-    D3: ''
-  }
+    B1: {},
+    B2: {},
+    B3: {},
+    C1: {},
+    C2: {},
+    C3: {},
+    D1: {},
+    D2: {},
+    D3: {}
+  };
+
 // At the initialisation of the component ======================================================================================================
 
   ngOnInit() {
@@ -569,10 +591,18 @@ export class SodukoGameComponent implements OnInit{
                                                       isLegendary: this.retrievedPokemon.is_legendary,
                                                       isMythical: this.retrievedPokemon.is_mythical
                                                       };
-                                                      
-    console.log(this.retrievedPokemon.varieties.map(slot => slot.pokemon.name));
+
+    console.log(this.selectedPokemonNameList);
     
 
+    // We remove the name of the selected pokemon from the pokemon name 
+
+    if (Object.values(this.selectedPokemonNameList).includes(this.retrievedPokemon.name)){
+      return window.alert('This pokemon is already selected, please choose another Pokemon !')
+    }
+
+    this.selectedPokemonNameList[this.selectedDivID] = this.retrievedPokemon.name;
+    
     // Some details about the object :
       // - name: string : correspond to the name of the pokemon, notice that for forms only the
       //                  species name is used (ex: necrozma-ultra => necrozma)
@@ -852,6 +882,8 @@ export class SodukoGameComponent implements OnInit{
     this.cdr.detectChanges(); // check changes in the DOM trigger render update
   };
 
+  // This function check if the types matches
+
   checkTypeMatch(conditionsCombination, selectedPokemon){
 
     for (let i = 0; i < conditionsCombination.types.length; i++) {
@@ -862,5 +894,12 @@ export class SodukoGameComponent implements OnInit{
       };
 
       return true;
-    };
   };
+
+
+  closeModal(){
+    let modalSelection = document.querySelector('.modal-select') as HTMLElement;
+
+    modalSelection.classList.add('invisible');
+  }
+};

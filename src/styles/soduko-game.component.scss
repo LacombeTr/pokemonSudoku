@@ -279,3 +279,17 @@ input{
 .loader-puzzle{
     font-size: 8rem;
 }
+
+.closeModalBtn{
+    display: block;
+    position: absolute;
+
+    top: 8rem;
+    left: 2rem;
+
+    color: white;
+
+    transform: scale(200%);
+
+    z-index: 5;
+}
