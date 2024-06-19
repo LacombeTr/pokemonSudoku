@@ -6,7 +6,7 @@
         <h2>Pokemon Sudoku<HR></h2>
         <h3>Game Rules</h3>
         <p>Rules are simples: for each square find a pokemon that matches the condition indicated a the top of the column and at the beginning of the line !</p>
-        <p> There can be multiple possibilities !</p>
+        <p> There can be multiple possibilities ! </p>
 
     </div>
     
@@ -66,6 +66,10 @@
         <h3>Credits</h3>
         <p>This game is a clone of the PokeDoku Game created by Doku Games available here:</p>
         <a href="https://pokedoku.com" target="_blank">Original PokeDoku</a>
+
+        <hr>
+
+        <button (click)="checkGrid()">Check answers</button>
     </div>
 </div>
 
@@ -74,6 +78,8 @@
         <div class="square-anim violet"></div>
         <div class="fruit-anim violet"></div>
     </div>
+
+    <i (click)="closeModal()" class="fa-solid fa-xmark fa-2xl closeModalBtn"></i>
 
     <div class="selector">
         <div class="selector-banner top"></div>
@@ -104,7 +110,7 @@
         <div class="selector-banner bottom"></div>
     </div>
 
-    <div class="banner-anim scarlet">
-        <div class="square-anim scarlet"></div>
+    <div class="banner-anim violet">
+        <div class="square-anim violet"></div>
     </div>
 </div>

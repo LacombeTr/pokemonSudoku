@@ -1,7 +1,7 @@
 export const conditionTable: string[] = [
-    'Normal', 'Fighting', 'Flying', 'Ghost', 'Bug', 'Steel', 'Poison', 'Fire', 'Water', 'Grass', 'Ground', 'Rock', 'Electric', 'Ice', 'Dragon', 'Dark', 'Fairy','Monotype',
-    'Normal', 'Fighting', 'Flying', 'Ghost', 'Bug', 'Steel', 'Poison', 'Fire', 'Water', 'Grass', 'Ground', 'Rock', 'Electric', 'Ice', 'Dragon', 'Dark', 'Fairy','Monotype',
-    'Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola', 'Galar', 'Paldea', 'Hisui',
-    'Mega', 'Gmax',
-    'Legendary', 'Mythical'
+    'normal', 'fighting', 'flying', 'ghost', 'bug', 'steel', 'poison', 'fire', 'water', 'grass', 'ground', 'rock', 'electric', 'ice', 'dragon', 'dark', 'fairy','monotype',
+    'normal', 'fighting', 'flying', 'ghost', 'bug', 'steel', 'poison', 'fire', 'water', 'grass', 'ground', 'rock', 'electric', 'ice', 'dragon', 'dark', 'fairy','monotype',
+    'kanto', 'johto', 'hoenn', 'sinnoh', 'unova', 'kalos', 'alola', 'galar', 'paldea', 'hisui',
+    'mega', 'gmax',
+    'legendary', 'mythical'
 ]
